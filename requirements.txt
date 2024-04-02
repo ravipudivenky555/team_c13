@@ -1,0 +1,9 @@
+pandas
+numpy
+scikit-learn
+seaborn
+joblib
+xgboost
+flask
+pyshark
+pcap-ct
