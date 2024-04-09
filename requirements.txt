@@ -7,3 +7,4 @@ xgboost
 flask
 pyshark
 pcap-ct
+scapy
