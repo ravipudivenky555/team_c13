@@ -7,7 +7,7 @@ instance/*
 .webassets-cache
 .env
 
-rf.joblib
+models/rf.joblib
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
