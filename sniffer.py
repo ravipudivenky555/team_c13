@@ -45,20 +45,20 @@ with open('cols.txt','r') as f:
 #dt=joblib.load("models/dt.joblib")
 #rf=joblib.load("models/rf.joblib")
 xgb=joblib.load("models/xgb.joblib")
-#lr=joblib.load("models/logreg.joblib")
+lr=joblib.load("models/logreg.joblib")
 
 def predict(features):
     df=pd.DataFrame([features[:39]],columns=cols)
-    '''res=[
-        dt.predict([features]),
-        rf.predict([features]),
-        xgb.predict([features]),
-        lr.predict([features])
-    ]'''
-    res=xgb.predict(df)
-    if labels[res[0]]!='BENIGN':
+    res=[
+        #dt.predict(df),
+        #rf.predict(df),
+        xgb.predict(df)[0],
+        lr.predict(df)[0]
+    ]
+    res=max(res,key=res.count)
+    if labels[res]!='BENIGN':
         src=features[39]
-        print(labels[res[0]]," Attack Source:",src)
+        print(labels[res]," Attack Source:",src)
         block_user(src)
 
 FlowTimeout=600
