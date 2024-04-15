@@ -1,11 +1,7 @@
 pandas
 numpy
-scikit-learn
-seaborn
-joblib
+scikit-learn==1.2.2
+joblib==1.2.0
 xgboost
-flask
-pyshark
-pcap-ct
 scapy
 psutil

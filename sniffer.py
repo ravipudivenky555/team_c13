@@ -8,6 +8,7 @@ import pandas as pd
 import json
 import os
 import platform
+import xgboost
 
 def block_user(ip_address):
     system = platform.system()
@@ -42,28 +43,28 @@ del format_label_dict
 with open('cols.txt','r') as f:
     cols=f.read().split('\n')
 
-#dt=joblib.load("models/dt.joblib")
-#rf=joblib.load("models/rf.joblib")
+dt=joblib.load("models/dt.joblib")
+rf=joblib.load("models/rf.joblib")
 xgb=joblib.load("models/xgb.joblib")
 gbc=joblib.load("models/gbc.joblib")
 mlp=joblib.load("models/mlp.joblib")
-scaler=joblib.load("models/scaler.joblib")
+#scaler=joblib.load("models/scaler.joblib")
 
 def predict(features):
     df=pd.DataFrame([features[:39]],columns=cols)
-    df=scaler.transform(df)
+    #df=scaler.transform(df)
     res=[
-        #dt.predict(df)[0],
-        #rf.predict(df)[0],
+        dt.predict(df)[0],
+        rf.predict(df)[0],
         xgb.predict(df)[0],
         gbc.predict(df)[0],
         mlp.predict(df)[0]
     ]
-    print(res)
     res=max(res)
-    if labels[res]!='BENIGN':
+    print("Prediction:",res)
+    if res!=0:
         src=features[39]
-        print(labels[res]," Attack Source:",src)
+        print(" Attack Source:",src)
         block_user(src)
 
 FlowTimeout=600
