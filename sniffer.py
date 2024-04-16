@@ -64,7 +64,7 @@ def predict(features):
     print("Prediction:",res)
     if res!=0:
         src=features[39]
-        print(" Attack Source:",src)
+        print(labels[res],"Attack Source:",src)
         block_user(src)
 
 FlowTimeout=600
@@ -133,9 +133,9 @@ def newPacket(p):
 
 def snif_and_detect():
 
+    print("Begin Sniffing".center(20, ' '))
+    sniff(prn=newPacket)
     while True:
-        print("Begin Sniffing".center(20, ' '))
-        sniff(prn=newPacket)
         for f in current_flows.values():
             predict(f.terminated())
 
