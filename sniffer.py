@@ -94,49 +94,37 @@ def newPacket(p):
         if packet.getFwdID() in current_flows.keys():
             flow = current_flows[packet.getFwdID()]
             if (packet.getTimestamp() - flow.getFlowLastSeen()) > FlowTimeout:
-                predict(flow.terminated())
                 del current_flows[packet.getFwdID()]
                 flow = Flow(packet)
                 current_flows[packet.getFwdID()] = flow
             elif packet.getFINFlag() or packet.getRSTFlag():
                 flow.new(packet, 'fwd')
-                predict(flow.terminated())
                 del current_flows[packet.getFwdID()]
-                del flow
             else:
                 flow.new(packet, 'fwd')
                 current_flows[packet.getFwdID()] = flow
         elif packet.getBwdID() in current_flows.keys():
             flow = current_flows[packet.getBwdID()]
             if (packet.getTimestamp() - flow.getFlowLastSeen()) > FlowTimeout:
-                predict(flow.terminated())
                 del current_flows[packet.getBwdID()]
-                del flow
                 flow = Flow(packet)
                 current_flows[packet.getFwdID()] = flow
 
             elif packet.getFINFlag() or packet.getRSTFlag():
                 flow.new(packet, 'bwd')
-                predict(flow.terminated())
                 del current_flows[packet.getBwdID()]
-                del flow
             else:
                 flow.new(packet, 'bwd')
                 current_flows[packet.getBwdID()] = flow
         else:
             flow = Flow(packet)
             current_flows[packet.getFwdID()] = flow
+        predict(flow.terminated())
     except AttributeError:
         return
     except:
         traceback.print_exc()
 
-def snif_and_detect():
-
+if __name__=="__main__":
     print("Begin Sniffing".center(20, ' '))
     sniff(prn=newPacket)
-    while True:
-        for f in current_flows.values():
-            predict(f.terminated())
-
-snif_and_detect()
