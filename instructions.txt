@@ -1,0 +1,28 @@
+1. Install Required Python Modules:
+   - Make sure you have Python installed on your system.
+   - Open a terminal or command prompt.
+   - Navigate to the directory containing the program files.
+   - Run the following command to install the required Python modules listed in the `requirements.txt` file:
+     ```
+     pip install -r requirements.txt
+     ```
+
+2. Operating System Compatibility:
+   - The program supports Linux, Windows, and macOS operating systems. Ensure that the necessary firewall rules can be applied based on your operating system.
+
+3. Run the Program:
+   - After installing the required modules, you can run the program by executing the Python script.
+   - Open a terminal or command prompt.
+   - Navigate to the directory containing the program files.
+   - Run the following command:
+     ```
+     python your_program.py
+     ```
+
+4. Program Usage:
+   - Once the program is running, it will start sniffing network traffic in real-time.
+   - The program will analyze each packet and predict potential attacks using pre-trained machine learning models.
+   - If an attack is detected, the program will block the source IP address using firewall rules specific to your operating system.
+
+5. Monitoring:
+   - Monitor the program's output for predictions and blocked IP addresses.
